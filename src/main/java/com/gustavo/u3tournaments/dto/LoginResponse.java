@@ -1,5 +1,7 @@
 package com.gustavo.u3tournaments.dto;
 
+import com.gustavo.u3tournaments.enums.Role;
+
 public class LoginResponse {
 
     private String message;
@@ -7,7 +9,7 @@ public class LoginResponse {
     private String username;
     private String email;
     private String psnId;
-    private String role;
+    private Role role;
 
     public LoginResponse() {
     }
@@ -18,7 +20,7 @@ public class LoginResponse {
             String username,
             String email,
             String psnId,
-            String role
+            Role role
     ) {
         this.message = message;
         this.id = id;
@@ -48,7 +50,7 @@ public class LoginResponse {
         return psnId;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 }
