@@ -1,5 +1,6 @@
 package com.gustavo.u3tournaments.model;
 
+import com.gustavo.u3tournaments.enums.Role;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -51,12 +52,13 @@ public class Player {
     )
     private String psnId;
 
+    @Enumerated(EnumType.STRING)
     @Column(
             name = "USER_ROLE",
             nullable = false,
             length = 20
     )
-    private String role = "PLAYER";
+    private Role role = Role.PLAYER;
 
     @Column(
             name = "CREATED_AT",
@@ -69,12 +71,13 @@ public class Player {
 
     @PrePersist
     public void beforeSave() {
+
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
         }
 
-        if (role == null || role.isBlank()) {
-            role = "PLAYER";
+        if (role == null) {
+            role = Role.PLAYER;
         }
     }
 
@@ -118,11 +121,11 @@ public class Player {
         this.psnId = psnId;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

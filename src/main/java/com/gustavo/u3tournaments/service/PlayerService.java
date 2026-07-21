@@ -7,6 +7,7 @@ import com.gustavo.u3tournaments.model.Player;
 import com.gustavo.u3tournaments.repository.PlayerRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.gustavo.u3tournaments.enums.Role;
 
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class PlayerService {
         );
 
         player.setPsnId(psnId);
-        player.setRole("PLAYER");
+        player.setRole(Role.PLAYER);
 
         Player savedPlayer = playerRepository.save(player);
 

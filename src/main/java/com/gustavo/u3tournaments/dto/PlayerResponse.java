@@ -1,5 +1,7 @@
 package com.gustavo.u3tournaments.dto;
 
+import com.gustavo.u3tournaments.enums.Role;
+
 import java.time.LocalDateTime;
 
 public class PlayerResponse {
@@ -8,7 +10,7 @@ public class PlayerResponse {
     private String username;
     private String email;
     private String psnId;
-    private String role;
+    private Role role;
     private LocalDateTime createdAt;
 
     public PlayerResponse() {
@@ -19,7 +21,7 @@ public class PlayerResponse {
             String username,
             String email,
             String psnId,
-            String role,
+            Role role,
             LocalDateTime createdAt
     ) {
         this.id = id;
@@ -46,7 +48,7 @@ public class PlayerResponse {
         return psnId;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
