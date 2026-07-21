@@ -13,13 +13,16 @@ public class AuthService {
 
     private final PlayerRepository playerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
     public AuthService(
             PlayerRepository playerRepository,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            JwtService jwtService
     ) {
         this.playerRepository = playerRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public LoginResponse login(LoginRequest request) {
@@ -37,10 +40,11 @@ public class AuthService {
                         )
                 );
 
-        boolean passwordMatches = passwordEncoder.matches(
-                request.getPassword(),
-                player.getPassword()
-        );
+        boolean passwordMatches =
+                passwordEncoder.matches(
+                        request.getPassword(),
+                        player.getPassword()
+                );
 
         if (!passwordMatches) {
             throw new InvalidCredentialsException(
@@ -48,8 +52,14 @@ public class AuthService {
             );
         }
 
+        String accessToken =
+                jwtService.generateToken(player);
+
         return new LoginResponse(
                 "Login successful",
+                accessToken,
+                "Bearer",
+                jwtService.getExpirationSeconds(),
                 player.getId(),
                 player.getUsername(),
                 player.getEmail(),
